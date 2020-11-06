@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Reward Store",
+  "name": "Reward Store de Matias Godoy",
+  "description": "Vista de catalogo para app de E-commerce que le permite a usuarixs canjear puntos por productos",
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,5 +22,5 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#fff"
 }
