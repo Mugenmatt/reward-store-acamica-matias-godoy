@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import nextPage from '../assets/icons/arrow-right.svg';
 
 const FilterBox = styled.div`
-  width: 80%;
+  width: 82%;
   margin: auto auto auto 2em;
   display: inline-flex;
   justify-content: space-between;
@@ -50,7 +50,6 @@ const PrevPageArrow = styled.img`
   border: 1px solid #d9d9d9;
   width: 46px;
   height: 46px;
-  margin-right: 5px;
   border-radius: 100%;
   transform: rotate(180deg);
   cursor: pointer;
@@ -64,40 +63,22 @@ const NextPageArrow = styled.img`
   cursor: pointer;
 `;
 
-const handleMostRecent = (e) => {
-  console.log(e.target);
+const Filter = (props) => {
+  const { handleHighestPrice, handleLowestPrice, handleNextPage, handlePrevPage } = props;
+  return (
+    <FilterBox>
+      <SortBy> Sort By: </SortBy>
+      <FilterBtnDiv>
+        <FilterBtn onClick={handleLowestPrice}> Lowest Price </FilterBtn>
+        <FilterBtn onClick={handleHighestPrice}> Highest Price </FilterBtn>
+      </FilterBtnDiv>
+      <PrevPageArrow
+        src={nextPage}
+        alt="Previous Page"
+        onClick={handlePrevPage}
+      />
+      <NextPageArrow src={nextPage} alt="Next Page" onClick={handleNextPage} />
+    </FilterBox>
+  );
 };
-
-const handleLowestPrice = (e) => {
-  console.log(e.target);
-};
-
-const handleHighestPrice = (e) => {
-  console.log(e.target);
-};
-
-const handlePrevPage = (e) => {
-  console.log(e.target);
-};
-
-const handleNextPage = (e) => {
-  console.log(e.target);
-};
-
-const Filter = () => (
-  <FilterBox>
-    <SortBy> Sort By: </SortBy>
-    <FilterBtnDiv>
-      <FilterBtn onClick={handleMostRecent}> Most Recent </FilterBtn>
-      <FilterBtn onClick={handleLowestPrice}> Lowest Price </FilterBtn>
-      <FilterBtn onClick={handleHighestPrice}> Highest Price </FilterBtn>
-    </FilterBtnDiv>
-    <PrevPageArrow
-      src={nextPage}
-      alt="Previous Page"
-      onClick={handlePrevPage}
-    />
-    <NextPageArrow src={nextPage} alt="Next Page" onClick={handleNextPage} />
-  </FilterBox>
-);
 export default Filter;

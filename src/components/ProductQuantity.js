@@ -9,8 +9,12 @@ const ProductQuantityWords = styled.p`
   color: #616161;
 `;
 
-const ProductQuantity = () => (
-  <ProductQuantityWords> 16 of 32 products </ProductQuantityWords>
-);
+const ProductQuantity = (props) => {
+  const { pagination } = props
+  console.log(pagination);
+  return (
+    <ProductQuantityWords> {pagination === 0 ? '16' : '32'} of 32 products </ProductQuantityWords>
+  )
+};
 
 export default ProductQuantity;

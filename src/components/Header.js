@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 import logoImg from '../assets/aerolab-logo.svg';
 import bannerImg from '../assets/banner.png';
 import coinImg from '../assets/icons/coin.svg';
