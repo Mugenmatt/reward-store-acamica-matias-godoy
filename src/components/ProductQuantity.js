@@ -5,15 +5,14 @@ const ProductQuantityWords = styled.p`
   font-size: 1.3em;
   font-weight: 400;
   display: inline-block;
-  margin: 7% auto 0 auto;
+  margin: 3% auto 0 auto;
   color: #616161;
 `;
 
 const ProductQuantity = (props) => {
   const { pagination } = props
-  console.log(pagination);
   return (
-    <ProductQuantityWords> {pagination === 0 ? '16' : '32'} of 32 products </ProductQuantityWords>
+    <ProductQuantityWords> {pagination === 0 ? '00-16' : '16-32'} of 32 products </ProductQuantityWords>
   )
 };
 

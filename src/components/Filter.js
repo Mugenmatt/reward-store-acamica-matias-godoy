@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 import nextPage from '../assets/icons/arrow-right.svg';
+import ProductQuantity from './ProductQuantity';
 
 const FilterBox = styled.div`
-  width: 82%;
+  width: 80%;
   margin: auto auto auto 2em;
   display: inline-flex;
   justify-content: space-between;
@@ -64,21 +65,24 @@ const NextPageArrow = styled.img`
 `;
 
 const Filter = (props) => {
-  const { handleHighestPrice, handleLowestPrice, handleNextPage, handlePrevPage } = props;
+  const { handleHighestPrice, handleLowestPrice, handleNextPage, handlePrevPage, pagination } = props;
   return (
-    <FilterBox>
-      <SortBy> Sort By: </SortBy>
-      <FilterBtnDiv>
-        <FilterBtn onClick={handleLowestPrice}> Lowest Price </FilterBtn>
-        <FilterBtn onClick={handleHighestPrice}> Highest Price </FilterBtn>
-      </FilterBtnDiv>
-      <PrevPageArrow
-        src={nextPage}
-        alt="Previous Page"
-        onClick={handlePrevPage}
-      />
-      <NextPageArrow src={nextPage} alt="Next Page" onClick={handleNextPage} />
-    </FilterBox>
+    <>
+      <ProductQuantity pagination={pagination} />
+      <FilterBox>
+        <SortBy> Sort By: </SortBy>
+        <FilterBtnDiv>
+          <FilterBtn onClick={handleLowestPrice}> Lowest Price </FilterBtn>
+          <FilterBtn onClick={handleHighestPrice}> Highest Price </FilterBtn>
+        </FilterBtnDiv>
+        <PrevPageArrow
+          src={nextPage}
+          alt="Previous Page"
+          onClick={handlePrevPage}
+        />
+        <NextPageArrow src={nextPage} alt="Next Page" onClick={handleNextPage} />
+      </FilterBox>
+    </>
   );
 };
 export default Filter;

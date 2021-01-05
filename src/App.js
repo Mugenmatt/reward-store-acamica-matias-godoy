@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom';
 
 import styled, { createGlobalStyle } from 'styled-components/macro';
 
 import Header from './components/Header';
 
-import Filter from './components/Filter';
-
 import Products from './pages/Products';
 
 import History from './pages/History'
-
-import ProductQuantity from './components/ProductQuantity';
 
 const GlobalStyles = createGlobalStyle`
 body {
@@ -40,37 +36,6 @@ const CenterPages = styled.div`
 
 const App = () => {
   const [productList, setProductList] = useState([]);
-  const [pagination, setPagination] = useState(0);
-  const handleLowestPrice = (e) => {
-    const lowestPrice = productList.sort( (a, b) => {
-      if(a.cost > b.cost) {
-        return 1
-      } else if(a.cost < b.cost) {
-        return -1
-      } else {
-        return 0
-      }
-    })
-    setProductList(lowestPrice);
-  };
-  const handleHighestPrice = (e) => {
-    const highestPrice = productList.sort( (a, b) => {
-      if(a.cost < b.cost) {
-        return 1
-      } else if(a.cost > b.cost) {
-        return -1
-      } else {
-        return 0
-      }
-    })
-    setProductList(highestPrice);
-  };
-  const handlePrevPage = () => {
-    setPagination(0);
-  };
-  const handleNextPage = () => {
-    setPagination(1);
-  };
   useEffect(() => {
     fetch(`https://coding-challenge-api.aerolab.co/products`, {
       headers: {
@@ -94,37 +59,28 @@ const App = () => {
       .catch((error) => console.log(error));
   }, []);
   return (
-    <div>
+    <>
       <BrowserRouter>
         <GlobalStyles />
         <CenterApp>
           <Header />
           <CenterPages>
             <main>
-              <ProductQuantity pagination={pagination} />
-              <Filter
-                handleLowestPrice={handleLowestPrice}
-                handleHighestPrice={handleHighestPrice}
-                handlePrevPage={handlePrevPage}
-                handleNextPage={handleNextPage}
-              />
-              <hr style={{ border: '1px solid #d9d9d9' }} />;
               <Switch>
                 <Route
                   exact
                   path="/"
-                  render={() => <Products allProducts={productList} pagination={pagination} />}
+                  render={() => <Products allProducts={productList}/>}
                 />
+                <Route exact path="/user/history" component={History} />
                 {/* MOSTRAR PRODUCTO ESPECIFICO */}
                 {/* <Route exact path="/product/:_id" component={} /> */}
-              </Switch>
-              <ProductQuantity pagination={pagination} />
-              <hr style={{ border: '1px solid #d9d9d9' }} />
+                </Switch>
             </main>
           </CenterPages>
         </CenterApp>
       </BrowserRouter>
-    </div>
+    </>
   );
 };
 
