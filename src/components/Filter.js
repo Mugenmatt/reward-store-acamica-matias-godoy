@@ -75,11 +75,7 @@ const Filter = (props) => {
           <FilterBtn onClick={handleLowestPrice}> Lowest Price </FilterBtn>
           <FilterBtn onClick={handleHighestPrice}> Highest Price </FilterBtn>
         </FilterBtnDiv>
-        <PrevPageArrow
-          src={nextPage}
-          alt="Previous Page"
-          onClick={handlePrevPage}
-        />
+        <PrevPageArrow src={nextPage} alt="Previous Page" onClick={handlePrevPage} />
         <NextPageArrow src={nextPage} alt="Next Page" onClick={handleNextPage} />
       </FilterBox>
     </>

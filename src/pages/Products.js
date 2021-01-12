@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import ProductCard from '../components/ProductCard';
@@ -31,9 +31,33 @@ const HistoryBtn = styled.p`
   }
 `;
 
-const Products = ({allProducts}) => {
-  const [productList, setProductList] = useState(allProducts);
+const Products = () => {
+  const [productList, setProductList] = useState([]);
   const [pagination, setPagination] = useState(0);
+
+  useEffect(() => {
+    fetch(`https://coding-challenge-api.aerolab.co/products`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI5NWY3YzhjYWIyMDAwMjBiODBiNTkiLCJpYXQiOjE2MDU5ODQxMjR9.RpQtGdkEPGoLmKYkPwyfdvufyT8wsFnVOkGrd9uJd0w',
+      },
+    })
+      .then((res) => res.json())
+      .then((productListData) => {
+        const formattedProducts = productListData.map((product) => ({
+          _id: product._id,
+          category: product.category,
+          cost: product.cost,
+          img: product.img.hdUrl,
+          name: product.name,
+        }));
+        setProductList(formattedProducts);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   const handleLowestPrice = () => {
     const lowestPrice = productList.sort( (a, b) => {
       if(a.cost > b.cost) {
@@ -44,7 +68,7 @@ const Products = ({allProducts}) => {
         return 0
       }
     })
-    setProductList(lowestPrice);
+    setProductList(lowestPrice.map(eachProduct => eachProduct));
   };
   const handleHighestPrice = () => {
     const highestPrice = productList.sort( (a, b) => {
@@ -56,7 +80,7 @@ const Products = ({allProducts}) => {
         return 0
       }
     })
-    setProductList(highestPrice);
+    setProductList(highestPrice.map(eachProduct => eachProduct));
   };
   const handlePrevPage = () => {
     setPagination(0);
@@ -66,7 +90,7 @@ const Products = ({allProducts}) => {
   };
   return (
     <>
-      <NavLink to={"/user/history"} activeClassName={{padding:'100px', backgroundColor: 'red'}} style={{textDecoration:'none'}}>
+      <NavLink to={"/user/history"} style={{textDecoration:'none'}}>
         <HistoryBtn>My History</HistoryBtn>
       </NavLink>
       <Filter
@@ -78,7 +102,7 @@ const Products = ({allProducts}) => {
       />
       <hr style={{ border: '1px solid #d9d9d9' }} />;
       <ProductsBoxContainer>
-        {pagination === 0 && allProducts
+        {pagination === 0 && productList
           .map((product) => (
             <ProductCard
               key={product.id}
@@ -89,7 +113,7 @@ const Products = ({allProducts}) => {
             />
           ))
           .slice(0, 16)}
-          {pagination === 1 && allProducts
+          {pagination === 1 && productList
           .map((product) => (
             <ProductCard
               key={product.id}

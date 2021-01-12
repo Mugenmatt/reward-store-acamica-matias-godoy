@@ -37,6 +37,21 @@ const UserName = styled.p`
   margin: 0 0.4em 0 0;
 `;
 
+const AddPointsBtn = styled.button`
+  margin: 0 15px;
+  border-radius:50px;
+  border-style: none;
+  padding: 15px;
+  text-align: center;
+  font-weight: 400;
+  :hover {
+    color: #fff;
+    background-color: #0ad4fa;
+    cursor: pointer;
+    font-weight: 400;
+  }
+`;
+
 const CoinNumberBox = styled.div`
   width: 6.18em;
   height: 5.11vh;
@@ -44,11 +59,13 @@ const CoinNumberBox = styled.div`
   border-radius: 100px;
   display: flex;
   justify-content: space-evenly;
+  padding-left: 10px;
   align-items: center;
 `;
 
 const CoinsNumber = styled.p`
   font-size: 1.2em;
+  font-weight: 700;
   color: #616161;
   letter-spacing: -0.15px;
 `;
@@ -56,6 +73,7 @@ const CoinsNumber = styled.p`
 const Coin = styled.img`
   width: 25px;
   height: 25px;
+  padding-right: 5px;
 `;
 
 const BannerBox = styled.div`
@@ -79,6 +97,7 @@ const BannerTitle = styled.h3`
 
 const Header = () => {
   const [user, setUser] = useState([]);
+  const [addPoints, setAddPoints] = useState();
   useEffect(() => {
     fetch(`https://coding-challenge-api.aerolab.co/user/me`, {
       headers: {
@@ -94,12 +113,36 @@ const Header = () => {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  const handlePoints = (e) => {
+    console.log(addPoints["New Points"]);
+    console.log(user.points);
+    console.log(setAddPoints);
+  }
+
+  useEffect(() => {
+    fetch(`https://coding-challenge-api.aerolab.co/user/points`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI5NWY3YzhjYWIyMDAwMjBiODBiNTkiLCJpYXQiOjE2MDU5ODQxMjR9.RpQtGdkEPGoLmKYkPwyfdvufyT8wsFnVOkGrd9uJd0w',
+      },
+      body: `{"amount": 1000}`
+    })
+      .then((res) => res.json())
+      .then((dataPoints) => {setAddPoints(dataPoints)})
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <header>
       <Menu>
         <MenuLogo src={logoImg} alt="Logo" />
         <RightBoxMenu>
           <UserName> {user.name} </UserName>
+          <AddPointsBtn onClick={handlePoints}> + Points </AddPointsBtn>
           <CoinNumberBox>
             <CoinsNumber> {user.points} </CoinsNumber>
             <Coin src={coinImg} />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 import ImagenDePrueba from '../assets/product-pics/LenovoYogaBook-x2.png'
 
@@ -37,6 +37,7 @@ const ProductCost = styled.p`
 const KeyWords = styled.p`
     font-weight: 700;
     color: #0ad4fa;
+    font-size: 1.3em;
 `;
 
 const PurchasedProduct = () => {

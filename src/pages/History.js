@@ -23,6 +23,21 @@ const HomeBtn = styled.p`
 `;
 
 const History = () => {
+    // const [history, setHistory] = useState([]);
+    useEffect(() => {
+        fetch(`https://coding-challenge-api.aerolab.co/user/history`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization:
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI5NWY3YzhjYWIyMDAwMjBiODBiNTkiLCJpYXQiOjE2MDU5ODQxMjR9.RpQtGdkEPGoLmKYkPwyfdvufyT8wsFnVOkGrd9uJd0w',
+          },
+        })
+          .then((res) => res.json())
+          .then((history) => console.log(history))
+          .catch((error) => console.log(error));
+      }, []);
+      
     return (
         <>
         <NavLink to={"/"} style={{textDecoration:'none'}}>
