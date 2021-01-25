@@ -10,6 +10,15 @@ const ProductsBoxContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   margin-top: 5%;
+  @media (max-width: 1280px) {
+    margin-left: 0.5%;
+  }
+  @media (max-width:1000px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width:500px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const HistoryBtn = styled.p`
@@ -28,6 +37,13 @@ const HistoryBtn = styled.p`
     background-color: #0ac4fa;
     color: #fff;
     cursor: pointer;
+  }
+  @media (max-width:1000px) {
+    width: 30%;
+  }
+  @media (max-width:700px) {
+    width: 60%;
+    margin: 5% auto;
   }
 `;
 

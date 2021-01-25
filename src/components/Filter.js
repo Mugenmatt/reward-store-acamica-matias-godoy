@@ -10,6 +10,17 @@ const FilterBox = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-bottom: 1.5%;
+  @media (max-width:1280px) {
+    width: 95%;
+  }
+  @media (max-width:1000px) {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const SortBy = styled.p`
@@ -19,10 +30,25 @@ const SortBy = styled.p`
   color: #a3a3a3;
   border-left: 1px solid #d9d9d9;
   padding: 10px 0 10px 1.3em;
+  @media (max-width:1280px) {
+    border-left: 0;
+  }
+  @media (max-width:1000px) {
+    font-size: 1.5em;
+    padding-right: 0;
+    display: block;
+    text-align: center;
+  }
+  @media (max-width:700px) {
+    display: none
+  }
 `;
 
 const FilterBtnDiv = styled.div`
-  margin-right: 20%;
+  @media (max-width:1000px) {
+    width: 100%;
+    text-align: center;
+  }
 `;
 
 const FilterBtn = styled.button`
@@ -45,6 +71,22 @@ const FilterBtn = styled.button`
     background-color: #0ad4fa;
     color: #fff;
   }
+  @media (max-width:1000px) {
+    font-size: 1.5em;
+    width: 70%;
+    margin: 2% 0;
+  }
+`;
+
+const PageArrowContainer = styled.div`
+  width: 15%;
+  display: block;
+  @media (max-width:1000px) {
+    width: 100%;
+    margin-top: 3%;
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 const PrevPageArrow = styled.img`
@@ -61,7 +103,11 @@ const NextPageArrow = styled.img`
   width: 46px;
   height: 46px;
   border-radius: 100%;
+  margin-left: 2%;
   cursor: pointer;
+  @media (max-width:1000px) {
+    margin-left: 2%;
+  }
 `;
 
 const Filter = (props) => {
@@ -75,8 +121,10 @@ const Filter = (props) => {
           <FilterBtn onClick={handleLowestPrice}> Lowest Price </FilterBtn>
           <FilterBtn onClick={handleHighestPrice}> Highest Price </FilterBtn>
         </FilterBtnDiv>
-        <PrevPageArrow src={nextPage} alt="Previous Page" onClick={handlePrevPage} />
-        <NextPageArrow src={nextPage} alt="Next Page" onClick={handleNextPage} />
+        <PageArrowContainer>
+          <PrevPageArrow src={nextPage} alt="Previous Page" onClick={handlePrevPage} />
+          <NextPageArrow src={nextPage} alt="Next Page" onClick={handleNextPage} />
+        </PageArrowContainer>
       </FilterBox>
     </>
   );

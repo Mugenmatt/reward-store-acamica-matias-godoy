@@ -12,12 +12,27 @@ const Menu = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
+  @media (max-width:700px) {
+    height: auto;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const MenuLogo = styled.img`
   width: 2.34em;
   height: 3.83vh;
   margin-left: 2em;
+  @media (max-width:700px) {
+    width:10em;
+    height: 10vh;
+    display: block;
+    margin-top: 1em;
+    margin-left: 0;
+  }
 `;
 
 const RightBoxMenu = styled.div`
@@ -26,6 +41,12 @@ const RightBoxMenu = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 0 2em 0 0;
+  @media (max-width:700px) {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    margin: 2em 0 0 0;
+  }
 `;
 
 const UserName = styled.p`
@@ -35,6 +56,9 @@ const UserName = styled.p`
   letter-spacing: -0.15px;
   text-align: left;
   margin: 0 0.4em 0 0;
+  @media (max-width:700px) {
+    margin: 0;
+  }
 `;
 
 const AddPointsBtn = styled.button`
@@ -50,6 +74,9 @@ const AddPointsBtn = styled.button`
     cursor: pointer;
     font-weight: 400;
   }
+  @media (max-width:700px) {
+    margin: 0;
+  }
 `;
 
 const Points = styled.button`
@@ -64,6 +91,20 @@ const Points = styled.button`
     background-color: #0ad4fa;
     cursor: pointer;
     font-weight: 400;
+  }
+  @media (max-width:700px) {
+    margin: 0;
+    width: 100%;
+    display: block;
+  }
+`;
+
+const PointsContainer = styled.div`
+  @media (max-width:700px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
@@ -99,6 +140,12 @@ const BannerBox = styled.div`
   background-repeat: no-repeat;
   background-position: 0% 50%;
   position: relative;
+  @media (max-width:1000px) {
+    height: 32vh;
+  }
+  @media (max-width:700px) {
+    display: none;
+  }
 `;
 
 const BannerTitle = styled.h3`
@@ -106,8 +153,14 @@ const BannerTitle = styled.h3`
   font-size: 64px;
   color: #ffffff;
   z-index: 100;
-  margin-top: 3.5em;
-  margin-left: 1.92em;
+  top: 3.5em;
+  left: 1.92em;
+  @media (max-width:1000px) {
+    font-size: 3em;
+  }
+  @media (max-width:700px) {
+    display: none;
+  }
 `;
 
 const Header = (props) => {
@@ -220,10 +273,12 @@ const Header = (props) => {
         <MenuLogo src={logoImg} alt="Logo" />
         <RightBoxMenu>
           <UserName> {username} </UserName>
-          {showBtn && <Points onClick={handlePoints}> + 1000 </Points>}
-          {showBtn && <Points onClick={handlePoints}> + 5000 </Points>}
-          {showBtn && <Points onClick={handlePoints}> + 7500 </Points>}
-          <AddPointsBtn onClick={handleShowBtn}> Add Points </AddPointsBtn>
+          <PointsContainer>
+            <AddPointsBtn onClick={handleShowBtn}> Add Points </AddPointsBtn>
+            {showBtn && <Points onClick={handlePoints}> + 1000 </Points>}
+            {showBtn && <Points onClick={handlePoints}> + 5000 </Points>}
+            {showBtn && <Points onClick={handlePoints}> + 7500 </Points>}
+          </PointsContainer>
           <CoinNumberBox>
             <CoinsNumber> {user} </CoinsNumber>
             <Coin src={coinImg} />

@@ -7,6 +7,14 @@ const ProductQuantityWords = styled.p`
   display: inline-block;
   margin: 3% auto 0 auto;
   color: #616161;
+  @media (max-width:1000px) {
+    display: block;
+    text-align: center;
+    margin: 8% 0 2% 0;
+  }
+  @media (max-width:700px) {
+    margin-bottom: 5%;
+  }
 `;
 
 const ProductQuantity = (props) => {

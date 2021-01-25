@@ -21,12 +21,22 @@ body {
   margin: 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  @media (max-width:700px) {
+    background-color: #0ad4fa;
+  }
 }
 `;
 
 const CenterApp = styled.div`
   width: 86.4em;
   margin: 2% auto 5% auto;
+  @media (max-width: 1280px) {
+    width: 90%;
+  }
+  @media (max-width:700px) {
+    background-color: #fff;
+    border-radius: 20px;
+  }
 `;
 
 const CenterPages = styled.div`

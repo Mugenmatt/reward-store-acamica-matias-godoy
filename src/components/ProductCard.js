@@ -11,6 +11,12 @@ const ProductCardBox = styled.div`
   padding: 0 0 25px 0;
   margin: 10px 0;
   position: relative;
+  @media (max-width: 1280px) {
+    width: 95%;
+  }
+  @media (max-width:500px) {
+    margin-top: 4%;
+  }
 `;
 
 const BagProductDiv = styled.div`
