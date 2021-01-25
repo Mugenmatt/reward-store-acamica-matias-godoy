@@ -38,7 +38,22 @@ const UserName = styled.p`
 `;
 
 const AddPointsBtn = styled.button`
-  margin: 0 15px;
+  margin: 0 10px 0 0;
+  border-radius:50px;
+  border-style: none;
+  padding: 15px;
+  text-align: center;
+  font-weight: 400;
+  :hover {
+    color: #fff;
+    background-color: #0ad4fa;
+    cursor: pointer;
+    font-weight: 400;
+  }
+`;
+
+const Points = styled.button`
+  margin: 0 10px 0 0;
   border-radius:50px;
   border-style: none;
   padding: 15px;
@@ -95,56 +110,122 @@ const BannerTitle = styled.h3`
   margin-left: 1.92em;
 `;
 
-const Header = () => {
+const Header = (props) => {
+  const { updateUser, onRedeemUpdateUser} = props;
   const [user, setUser] = useState([]);
-  const [addPoints, setAddPoints] = useState();
+  const [username, setUsername] = useState();
+  const [showBtn, setShowBtn] = useState(false);
+
   useEffect(() => {
     fetch(`https://coding-challenge-api.aerolab.co/user/me`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI5NWY3YzhjYWIyMDAwMjBiODBiNTkiLCJpYXQiOjE2MDU5ODQxMjR9.RpQtGdkEPGoLmKYkPwyfdvufyT8wsFnVOkGrd9uJd0w',
-      },
-    })
-      .then((res) => res.json())
-      .then((userData) => {
-        setUser(userData);
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI5NWY3YzhjYWIyMDAwMjBiODBiNTkiLCJpYXQiOjE2MDU5ODQxMjR9.RpQtGdkEPGoLmKYkPwyfdvufyT8wsFnVOkGrd9uJd0w',
+        },
       })
-      .catch((error) => console.log(error));
+        .then((res) => res.json())
+        .then((userData) => {
+          setUsername(userData.name)
+          setUser(userData.points);
+        })
+        .catch((error) => console.log(error));
   }, []);
-
-  const handlePoints = (e) => {
-    console.log(addPoints["New Points"]);
-    console.log(user.points);
-    console.log(setAddPoints);
-  }
 
   useEffect(() => {
-    fetch(`https://coding-challenge-api.aerolab.co/user/points`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI5NWY3YzhjYWIyMDAwMjBiODBiNTkiLCJpYXQiOjE2MDU5ODQxMjR9.RpQtGdkEPGoLmKYkPwyfdvufyT8wsFnVOkGrd9uJd0w',
-      },
-      body: `{"amount": 1000}`
-    })
-      .then((res) => res.json())
-      .then((dataPoints) => {setAddPoints(dataPoints)})
-      .catch((error) => console.log(error));
-  }, []);
+    if(updateUser) {
+    fetch(`https://coding-challenge-api.aerolab.co/user/me`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI5NWY3YzhjYWIyMDAwMjBiODBiNTkiLCJpYXQiOjE2MDU5ODQxMjR9.RpQtGdkEPGoLmKYkPwyfdvufyT8wsFnVOkGrd9uJd0w',
+        },
+      })
+        .then((res) => res.json())
+        .then((userData) => {
+          setUsername(userData.name)
+          setUser(userData.points);
+          onRedeemUpdateUser(false);
+        })
+        .catch((error) => console.log(error));
+  }
+  }, [updateUser, onRedeemUpdateUser]);
+
+  const handlePoints = (e) => {
+    let points = e.target.innerText;
+
+    if(points === "+ 1000") {
+      fetch(`https://coding-challenge-api.aerolab.co/user/points`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI5NWY3YzhjYWIyMDAwMjBiODBiNTkiLCJpYXQiOjE2MDU5ODQxMjR9.RpQtGdkEPGoLmKYkPwyfdvufyT8wsFnVOkGrd9uJd0w',
+        },
+        body: `{"amount": 1000}`
+      })
+        .then((res) => res.json())
+        .then((dataPoints) => {
+          setUser(dataPoints["New Points"])
+        })
+        .catch((error) => console.log(error));
+    } else if(points === "+ 5000") {
+      fetch(`https://coding-challenge-api.aerolab.co/user/points`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI5NWY3YzhjYWIyMDAwMjBiODBiNTkiLCJpYXQiOjE2MDU5ODQxMjR9.RpQtGdkEPGoLmKYkPwyfdvufyT8wsFnVOkGrd9uJd0w',
+        },
+        body: `{"amount": 5000}`
+      })
+        .then((res) => res.json())
+        .then((dataPoints) => {
+          setUser(dataPoints["New Points"])
+        })
+        .catch((error) => console.log(error));
+    } else {
+      fetch(`https://coding-challenge-api.aerolab.co/user/points`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI5NWY3YzhjYWIyMDAwMjBiODBiNTkiLCJpYXQiOjE2MDU5ODQxMjR9.RpQtGdkEPGoLmKYkPwyfdvufyT8wsFnVOkGrd9uJd0w',
+        },
+        body: `{"amount": 7500}`
+      })
+        .then((res) => res.json())
+        .then((dataPoints) => {
+          setUser(dataPoints["New Points"])
+        })
+        .catch((error) => console.log(error));
+    }
+  }
+
+  const handleShowBtn = () => {
+    setShowBtn(true)
+    setTimeout(e => {
+      setShowBtn(false)
+    }, 10000)
+  }
 
   return (
     <header>
       <Menu>
         <MenuLogo src={logoImg} alt="Logo" />
         <RightBoxMenu>
-          <UserName> {user.name} </UserName>
-          <AddPointsBtn onClick={handlePoints}> + Points </AddPointsBtn>
+          <UserName> {username} </UserName>
+          {showBtn && <Points onClick={handlePoints}> + 1000 </Points>}
+          {showBtn && <Points onClick={handlePoints}> + 5000 </Points>}
+          {showBtn && <Points onClick={handlePoints}> + 7500 </Points>}
+          <AddPointsBtn onClick={handleShowBtn}> Add Points </AddPointsBtn>
           <CoinNumberBox>
-            <CoinsNumber> {user.points} </CoinsNumber>
+            <CoinsNumber> {user} </CoinsNumber>
             <Coin src={coinImg} />
           </CoinNumberBox>
         </RightBoxMenu>

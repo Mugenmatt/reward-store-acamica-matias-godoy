@@ -31,9 +31,11 @@ const HistoryBtn = styled.p`
   }
 `;
 
-const Products = () => {
+const Products = (props) => {
   const [productList, setProductList] = useState([]);
   const [pagination, setPagination] = useState(0);
+  const { onRedeemUpdateUser, userPoints } = props;
+
 
   useEffect(() => {
     fetch(`https://coding-challenge-api.aerolab.co/products`, {
@@ -70,6 +72,7 @@ const Products = () => {
     })
     setProductList(lowestPrice.map(eachProduct => eachProduct));
   };
+
   const handleHighestPrice = () => {
     const highestPrice = productList.sort( (a, b) => {
       if(a.cost < b.cost) {
@@ -82,12 +85,32 @@ const Products = () => {
     })
     setProductList(highestPrice.map(eachProduct => eachProduct));
   };
+
   const handlePrevPage = () => {
     setPagination(0);
   };
+
   const handleNextPage = () => {
     setPagination(1);
   };
+
+
+  const handleRedeemProducts = (id) => {
+    fetch('https://coding-challenge-api.aerolab.co/redeem', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization':
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI5NWY3YzhjYWIyMDAwMjBiODBiNTkiLCJpYXQiOjE2MDU5ODQxMjR9.RpQtGdkEPGoLmKYkPwyfdvufyT8wsFnVOkGrd9uJd0w',
+      },
+      body: `{"productId": "${id}"}`
+    })
+      .then((res) => res.json())
+      .then((redeemProduct) => redeemProduct)
+      .catch((error) => console.log('ERROR: ' + error));
+  }
+
   return (
     <>
       <NavLink to={"/user/history"} style={{textDecoration:'none'}}>
@@ -100,27 +123,35 @@ const Products = () => {
         handleNextPage={handleNextPage}
         pagination={pagination}
       />
-      <hr style={{ border: '1px solid #d9d9d9' }} />;
+      <hr style={{ border: '1px solid #d9d9d9' }} />
       <ProductsBoxContainer>
         {pagination === 0 && productList
           .map((product) => (
             <ProductCard
-              key={product.id}
+              key={product._id}
+              id={product._id}
               img={product.img}
               name={product.name}
               category={product.category}
               cost={product.cost}
+              handleRedeemProducts = {handleRedeemProducts}
+              onRedeemUpdateUser = {onRedeemUpdateUser}
+              userPoints={userPoints}
             />
           ))
           .slice(0, 16)}
           {pagination === 1 && productList
           .map((product) => (
             <ProductCard
-              key={product.id}
+              key={product._id}
+              id={product._id}
               img={product.img}
               name={product.name}
               category={product.category}
               cost={product.cost}
+              handleRedeemProducts = {handleRedeemProducts}
+              onRedeemUpdateUser = {onRedeemUpdateUser}
+              userPoints={userPoints}
             />
           ))
           .slice(16, 32)}

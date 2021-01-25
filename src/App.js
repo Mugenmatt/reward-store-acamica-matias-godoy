@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
-import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import styled, { createGlobalStyle } from 'styled-components/macro';
 
@@ -35,25 +35,50 @@ const CenterPages = styled.div`
 `;
 
 const App = () => {
+
+  const [updateUser, setUpdateUser] = useState(false)
+  const [userPoints, setUserPoints] = useState()
+
+  const onRedeemUpdateUser = (boolean) => {
+      setUpdateUser(boolean)
+  }
+
+  useEffect(() => {
+    fetch(`https://coding-challenge-api.aerolab.co/user/me`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI5NWY3YzhjYWIyMDAwMjBiODBiNTkiLCJpYXQiOjE2MDU5ODQxMjR9.RpQtGdkEPGoLmKYkPwyfdvufyT8wsFnVOkGrd9uJd0w',
+        },
+      })
+        .then((res) => res.json())
+        .then((userData) => {
+          setUserPoints(userData.points);
+        })
+        .catch((error) => console.log(error));
+  }, []);
   
   return (
     <>
-      <BrowserRouter>
-        <GlobalStyles />
-        <CenterApp>
-          <Header />
-          <CenterPages>
-            <main>
-              <Switch>
-                <Route exact path="/" component={Products} />
-                <Route exact path="/user/history" component={History} />
-                {/* MOSTRAR PRODUCTO ESPECIFICO */}
-                {/* <Route exact path="/product/:_id" component={} /> */}
-                </Switch>
-            </main>
-          </CenterPages>
-        </CenterApp>
-      </BrowserRouter>
+        <BrowserRouter>
+          <GlobalStyles />
+          <CenterApp>
+            <Header updateUser={updateUser} onRedeemUpdateUser={onRedeemUpdateUser} />
+            <CenterPages>
+              <main>
+                <Switch>
+                  <Route exact path="/">
+                    <Products onRedeemUpdateUser={onRedeemUpdateUser} userPoints={userPoints} />
+                  </Route>
+                  <Route exact path="/user/history" component={History} />
+                  {/* MOSTRAR PRODUCTO ESPECIFICO */}
+                  {/* <Route exact path="/product/:_id" component={} /> */}
+                  </Switch>
+              </main>
+            </CenterPages>
+          </CenterApp>
+        </BrowserRouter>
     </>
   );
 };

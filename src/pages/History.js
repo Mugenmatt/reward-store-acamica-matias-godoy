@@ -23,7 +23,7 @@ const HomeBtn = styled.p`
 `;
 
 const History = () => {
-    // const [history, setHistory] = useState([]);
+    const [history, setHistory] = useState([]);
     useEffect(() => {
         fetch(`https://coding-challenge-api.aerolab.co/user/history`, {
           headers: {
@@ -34,7 +34,7 @@ const History = () => {
           },
         })
           .then((res) => res.json())
-          .then((history) => console.log(history))
+          .then((historyData) => setHistory(historyData))
           .catch((error) => console.log(error));
       }, []);
       
@@ -44,10 +44,15 @@ const History = () => {
           <HomeBtn>Back</HomeBtn>
         </NavLink>
         <hr style={{ border: '1px solid #d9d9d9' }} />;
-        <PurchasedProduct />
-        <PurchasedProduct />
-        <PurchasedProduct />
-        <PurchasedProduct />
+        {history.map(product => {
+          return <PurchasedProduct
+            title={product.name}
+            category={product.category}
+            price={product.cost}
+            img={product.img.url}
+          />
+        })
+        }
         </>
     );
 };

@@ -40,17 +40,18 @@ const KeyWords = styled.p`
     font-size: 1.3em;
 `;
 
-const PurchasedProduct = () => {
+const PurchasedProduct = (props) => {
+    const { title, category, price, img } = props;
     return (
         <>
         <PurchasedProductCard>
             <div>
-                <ProductImage src={ImagenDePrueba} alt="Producto"></ProductImage>
+                <ProductImage src={img} alt="Producto"></ProductImage>
             </div>
             <div>
-                <ProductTitle>Titulo del Producto: <KeyWords>Computadora Piola</KeyWords> </ProductTitle>
-                <ProductDescription>Descripcion del Producto: <KeyWords>Una compu muy piola, que se pone re loca.</KeyWords> </ProductDescription>
-                <ProductCost> Precio: <KeyWords>$20.000</KeyWords></ProductCost>
+                <ProductTitle>Product Title: <KeyWords>${title}</KeyWords> </ProductTitle>
+                <ProductDescription>Product Description: <KeyWords>${category}</KeyWords> </ProductDescription>
+                <ProductCost> Price: <KeyWords>${price}</KeyWords></ProductCost>
             </div>
         </PurchasedProductCard>
         </>
