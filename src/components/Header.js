@@ -153,8 +153,8 @@ const BannerTitle = styled.h3`
   font-size: 64px;
   color: #ffffff;
   z-index: 100;
-  top: 3.5em;
-  left: 1.92em;
+  margin-top: 3.5em;
+  margin-left: 1.92em;
   @media (max-width:1000px) {
     font-size: 3em;
   }
