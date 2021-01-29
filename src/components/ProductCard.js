@@ -3,17 +3,22 @@ import styled from 'styled-components/macro';
 import whiteBag from '../assets/icons/buy-blue.svg';
 import blueBag from '../assets/icons/buy-white.svg';
 import Lottie from 'react-lottie';
-import errorAnimation from '../assets/animations/14651-error-animation.json';
+// import errorAnimation from '../assets/animations/14651-error-animation.json';
 import successAnimation from '../assets/animations/37265-success-animation.json';
 
 const ProductCardBox = styled.div`
   background: #ffffff;
   box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.1);
   width: 270px;
-  padding: 0 0 25px 0;
+  height: 346.45px;
   margin: 10px 0;
   position: relative;
   overflow: hidden;
+  transition: all 0.25s ease-in;
+  :hover {
+    transform: scale(1.1) translateY(-5%);
+    z-index: 5;
+  }
   @media (max-width: 1280px) {
     width: 95%;
   }
@@ -33,9 +38,10 @@ const ShoppingBag = styled.img`
   height: 42px;
   border-radius: 100%;
   position: absolute;
-  z-index: 1;
   right: 0;
   padding: 10px;
+  transition: 3s;
+  opacity: ${props => props.primary ? '0' : '1'};
 `;
 
 const ProductImg = styled.img`
@@ -73,16 +79,17 @@ const ProductCost = styled.p`
 
 const RedeemBtn = styled.button`
   padding: 10px;
-  background-color: #fff;
-  color: #0ad4fa;
+  background-color: #0ad4fa;
+  color: #fff;
   border: 1px solid #0ad4fa;
   border-radius: 10px;
   display: block;
-  margin: auto;
+  margin: 10px auto;
+  transition: 0.5s;
   :hover {
-    border: 1px solid #fff;
-    background-color: #0ad4fa;
-    color: #fff;
+    border: 1px solid #0ad4fa;
+    background-color: #fff;
+    color: #0ad4fa;
     cursor: pointer;
   }
 `;
@@ -107,25 +114,15 @@ const ModalShowing = styled.div`
   position: absolute;
   right: -10%;
   top: -10%;
-  background-color: rgba(10, 212, 250, .7);
+  background: rgba(10, 212, 250, .7);
   padding: 30px;
-  :hover {
-    background-color: red;
+  animation: bgOpacity 3s ease-in-out;
+  @keyframes bgOpacity {
+    0% {opacity: 1;}
+    90% {opacity: 1;}
+    100% {opacity: 0;}
   }
 `;
-
-// const ModalNotShowing = styled.div`
-//   opacity: 1;
-//   pointer-events: none;
-//   width: 100%;
-//   height: 100%;
-//   z-index: 10;
-//   position: absolute;
-//   right: -10%;
-//   top: -10%;
-//   background-color: rgba(10, 212, 250, .7);
-//   padding: 30px;
-// `;
 
 const ProductCard = (props) => {
   const { img, name, cost, category, handleRedeemProducts, id, onRedeemUpdateUser, userPoints } = props;
@@ -146,25 +143,24 @@ const ProductCard = (props) => {
   }
 
   return (
-    // <ModalNotShowing> <Lottie options={{animationData: errorAnimation, ...defaultOptions}} /> </ModalNotShowing>
     <ProductCardBox>
-      {modalState === 1 && <ModalShowing> <Lottie options={{animationData: successAnimation, controls: false, loop: false}} style={{"width": "200px"}} /> </ModalShowing>}
-      <BagProductDiv>
-      {bagColor
-      ? <ShoppingBag src={whiteBag} />
-      : <ShoppingBag src={blueBag} /> }
-        <ProductImg src={img} />
-      </BagProductDiv>
-      <ProductCategory> {category} </ProductCategory>
-      <ProductTitle> {name} </ProductTitle>
-      {cost < userPoints && modalState === 0
-      ? <>
-        <ProductCost> ${cost} </ProductCost>
-        <RedeemBtn onClick={handleClick}> Redeem </RedeemBtn></>
-      : <>
-        <ProductCost> ${cost} </ProductCost>
-        {modalState === 0 ? <CantRedeem>"You need {cost - userPoints} more points!"</CantRedeem> : null} </>
-      }
+        {modalState === 1 && <ModalShowing> <Lottie modalState options={{animationData: successAnimation, controls: false, loop: false}} style={{"width": "200px"}} /> </ModalShowing>}
+        <BagProductDiv>
+        {bagColor
+        ? <ShoppingBag primary src={whiteBag} />
+        : <ShoppingBag src={blueBag} /> }
+          <ProductImg src={img} />
+        </BagProductDiv>
+        <ProductCategory> {category} </ProductCategory>
+        <ProductTitle> {name} </ProductTitle>
+        {cost < userPoints && modalState === 0
+        ? <>
+          <ProductCost> ${cost} </ProductCost>
+          <RedeemBtn onClick={handleClick}> Redeem </RedeemBtn></>
+        : <>
+          <ProductCost> ${cost} </ProductCost>
+          {modalState === 0 ? <CantRedeem>"You need {cost - userPoints} more points!"</CantRedeem> : null} </>
+        }
     </ProductCardBox>
   );
 };

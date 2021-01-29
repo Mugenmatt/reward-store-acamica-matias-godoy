@@ -62,6 +62,7 @@ const FilterBtn = styled.button`
   background-color: #ededed;
   color: #a3a3a3;
   letter-spacing: -0.15px;
+  transition: 0.5s;
   :hover {
     cursor: pointer;
     background-color: #0ad4fa;

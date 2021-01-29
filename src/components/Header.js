@@ -69,6 +69,7 @@ const AddPointsBtn = styled.button`
   text-align: center;
   font-weight: 400;
   position: relative;
+  transition: 0.5s;
   :hover {
     color: #fff;
     background-color: #0ad4fa;
@@ -87,6 +88,14 @@ const Points = styled.button`
   padding: 15px;
   text-align: center;
   font-weight: 400;
+  transition: 0.5s;
+  animation: pointsOpacity 10s ease-in-out;
+  @keyframes pointsOpacity {
+    0%{opacity: 0}
+    5%{opacity: 1}
+    90%{opacity: 1}
+    100%{opacity: 0}
+  }
   :hover {
     color: #fff;
     background-color: #0ad4fa;

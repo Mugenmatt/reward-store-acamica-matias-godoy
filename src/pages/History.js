@@ -6,11 +6,12 @@ import PurchasedProduct from '../components/PurchasedProduct';
 const HomeBtn = styled.p`
   text-decoration: none;
   color: #fff;
+  position: relative;
+  left: 74.4%;
+  display: inline-block;
   font-size: 1.7em;
   width: 15%;
-  display: block;
   text-align: center;
-  margin-left: 74.4%;
   margin-top: 5%;
   background-color: #0ad4fa;
   padding: 10px 5px;

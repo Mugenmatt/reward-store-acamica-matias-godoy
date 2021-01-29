@@ -21,18 +21,24 @@ const ProductsBoxContainer = styled.div`
   }
 `;
 
+const FilterContainer = styled.div`
+  width:100%;
+`;
+
 const HistoryBtn = styled.p`
   text-decoration: none;
+  position: relative;
+  left: 74.4%;
+  display: inline-block;
   color: #fff;
   font-size: 1.7em;
   width: 15%;
-  display: block;
   text-align: center;
-  margin-left: 74.4%;
   margin-top: 5%;
   background-color: #0ad4fa;
   padding: 10px 5px;
   border-radius: 10px;
+  transition: 0.5s;
   :hover {
     background-color: #0ac4fa;
     color: #fff;
@@ -134,13 +140,15 @@ const Products = (props) => {
       <NavLink to={"/user/history"} style={{textDecoration:'none'}}>
         <HistoryBtn>My History</HistoryBtn>
       </NavLink>
-      <Filter
-        handleLowestPrice={handleLowestPrice}
-        handleHighestPrice={handleHighestPrice}
-        handlePrevPage={handlePrevPage}
-        handleNextPage={handleNextPage}
-        pagination={pagination}
-      />
+      <FilterContainer>
+        <Filter
+          handleLowestPrice={handleLowestPrice}
+          handleHighestPrice={handleHighestPrice}
+          handlePrevPage={handlePrevPage}
+          handleNextPage={handleNextPage}
+          pagination={pagination}
+        />
+      </FilterContainer>
       <hr style={{ border: '1px solid #d9d9d9' }} />
       <ProductsBoxContainer>
         {pagination === 0 && productList
