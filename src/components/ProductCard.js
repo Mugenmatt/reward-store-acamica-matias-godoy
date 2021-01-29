@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components/macro';
 import whiteBag from '../assets/icons/buy-blue.svg';
-// import blueBag from '../assets/icons/buy-white.svg';
-// import productImg from '../assets/product-pics/AcerAspire-x1.png';
+import blueBag from '../assets/icons/buy-white.svg';
+import Lottie from 'react-lottie';
+import errorAnimation from '../assets/animations/14651-error-animation.json';
+import successAnimation from '../assets/animations/37265-success-animation.json';
 
 const ProductCardBox = styled.div`
   background: #ffffff;
@@ -11,6 +13,7 @@ const ProductCardBox = styled.div`
   padding: 0 0 25px 0;
   margin: 10px 0;
   position: relative;
+  overflow: hidden;
   @media (max-width: 1280px) {
     width: 95%;
   }
@@ -40,7 +43,6 @@ const ProductImg = styled.img`
   height: 142px;
   margin-top: 5%;
   border-bottom: 2px solid #d9d9d9;
-  cursor: pointer;
 `;
 
 const ProductCategory = styled.p`
@@ -71,15 +73,16 @@ const ProductCost = styled.p`
 
 const RedeemBtn = styled.button`
   padding: 10px;
-  background-color: #0ad4fa;
-  color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0);
+  background-color: #fff;
+  color: #0ad4fa;
+  border: 1px solid #0ad4fa;
   border-radius: 10px;
   display: block;
   margin: auto;
   :hover {
-    border: 1px solid #0ad4fa;
-    background-color: #0ae4fa;
+    border: 1px solid #fff;
+    background-color: #0ad4fa;
+    color: #fff;
     cursor: pointer;
   }
 `;
@@ -95,25 +98,72 @@ const CantRedeem = styled.p`
   border-radius: 10px;
 `;
 
+const ModalShowing = styled.div`
+  opacity: 1;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  position: absolute;
+  right: -10%;
+  top: -10%;
+  background-color: rgba(10, 212, 250, .7);
+  padding: 30px;
+  :hover {
+    background-color: red;
+  }
+`;
+
+// const ModalNotShowing = styled.div`
+//   opacity: 1;
+//   pointer-events: none;
+//   width: 100%;
+//   height: 100%;
+//   z-index: 10;
+//   position: absolute;
+//   right: -10%;
+//   top: -10%;
+//   background-color: rgba(10, 212, 250, .7);
+//   padding: 30px;
+// `;
+
 const ProductCard = (props) => {
   const { img, name, cost, category, handleRedeemProducts, id, onRedeemUpdateUser, userPoints } = props;
+  const [bagColor, setBagColor] = useState(0)
+  const [modalState, setModalState] = useState(0);
 
   const handleClick = () => {
-    handleRedeemProducts(id)
-    onRedeemUpdateUser(true)
+    if(cost < userPoints){
+      handleRedeemProducts(id);
+      onRedeemUpdateUser(true);
+      setBagColor(1);
+      setModalState(1);
+      setTimeout(() => {
+      setModalState(0);
+      setBagColor(0);
+      }, 3000);
+    }
   }
+
   return (
+    // <ModalNotShowing> <Lottie options={{animationData: errorAnimation, ...defaultOptions}} /> </ModalNotShowing>
     <ProductCardBox>
+      {modalState === 1 && <ModalShowing> <Lottie options={{animationData: successAnimation, controls: false, loop: false}} style={{"width": "200px"}} /> </ModalShowing>}
       <BagProductDiv>
-        <ShoppingBag src={whiteBag} />
+      {bagColor
+      ? <ShoppingBag src={whiteBag} />
+      : <ShoppingBag src={blueBag} /> }
         <ProductImg src={img} />
       </BagProductDiv>
       <ProductCategory> {category} </ProductCategory>
       <ProductTitle> {name} </ProductTitle>
-      {cost < userPoints
-      ? <><ProductCost> ${cost} </ProductCost>
+      {cost < userPoints && modalState === 0
+      ? <>
+        <ProductCost> ${cost} </ProductCost>
         <RedeemBtn onClick={handleClick}> Redeem </RedeemBtn></>
-      : <CantRedeem> Insufficient Points! </CantRedeem>
+      : <>
+        <ProductCost> ${cost} </ProductCost>
+        {modalState === 0 ? <CantRedeem>"You need {cost - userPoints} more points!"</CantRedeem> : null} </>
       }
     </ProductCardBox>
   );

@@ -82,8 +82,6 @@ const App = () => {
                     <Products onRedeemUpdateUser={onRedeemUpdateUser} userPoints={userPoints} />
                   </Route>
                   <Route exact path="/user/history" component={History} />
-                  {/* MOSTRAR PRODUCTO ESPECIFICO */}
-                  {/* <Route exact path="/product/:_id" component={} /> */}
                   </Switch>
               </main>
             </CenterPages>

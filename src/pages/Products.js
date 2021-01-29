@@ -47,11 +47,12 @@ const HistoryBtn = styled.p`
   }
 `;
 
+
+
 const Products = (props) => {
   const [productList, setProductList] = useState([]);
   const [pagination, setPagination] = useState(0);
   const { onRedeemUpdateUser, userPoints } = props;
-
 
   useEffect(() => {
     fetch(`https://coding-challenge-api.aerolab.co/products`, {
@@ -111,6 +112,7 @@ const Products = (props) => {
   };
 
 
+
   const handleRedeemProducts = (id) => {
     fetch('https://coding-challenge-api.aerolab.co/redeem', {
       method: 'POST',
@@ -153,6 +155,8 @@ const Products = (props) => {
               handleRedeemProducts = {handleRedeemProducts}
               onRedeemUpdateUser = {onRedeemUpdateUser}
               userPoints={userPoints}
+              // setModalState={setModalState}
+              // modalState={modalState}
             />
           ))
           .slice(0, 16)}
@@ -168,6 +172,8 @@ const Products = (props) => {
               handleRedeemProducts = {handleRedeemProducts}
               onRedeemUpdateUser = {onRedeemUpdateUser}
               userPoints={userPoints}
+              // setModalState={setModalState}
+              // modalState={modalState}
             />
           ))
           .slice(16, 32)}

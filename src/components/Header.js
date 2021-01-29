@@ -68,6 +68,7 @@ const AddPointsBtn = styled.button`
   padding: 15px;
   text-align: center;
   font-weight: 400;
+  position: relative;
   :hover {
     color: #fff;
     background-color: #0ad4fa;
@@ -274,10 +275,10 @@ const Header = (props) => {
         <RightBoxMenu>
           <UserName> {username} </UserName>
           <PointsContainer>
-            <AddPointsBtn onClick={handleShowBtn}> Add Points </AddPointsBtn>
             {showBtn && <Points onClick={handlePoints}> + 1000 </Points>}
             {showBtn && <Points onClick={handlePoints}> + 5000 </Points>}
             {showBtn && <Points onClick={handlePoints}> + 7500 </Points>}
+            <AddPointsBtn onClick={handleShowBtn}> Add Points </AddPointsBtn>
           </PointsContainer>
           <CoinNumberBox>
             <CoinsNumber> {user} </CoinsNumber>
