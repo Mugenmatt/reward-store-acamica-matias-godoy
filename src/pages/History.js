@@ -45,7 +45,7 @@ const History = () => {
       
     return (
         <>
-        <NavLink to={"/reward-store-acamica-matias-godoy"} style={{textDecoration:'none'}}>
+        <NavLink to={"/"} style={{textDecoration:'none'}}>
           <HomeBtn>Back</HomeBtn>
         </NavLink>
         <hr style={{ border: '1px solid #d9d9d9', 'margin-bottom':'4%' }} />
