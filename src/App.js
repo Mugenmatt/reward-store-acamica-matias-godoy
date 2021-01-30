@@ -78,7 +78,7 @@ const App = () => {
             <CenterPages>
               <main>
                 <Switch>
-                  <Route exact path="/reward-store-acamica-matias-godoy/">
+                  <Route exact path="/reward-store-acamica-matias-godoy">
                     <Products onRedeemUpdateUser={onRedeemUpdateUser} userPoints={userPoints} />
                   </Route>
                   <Route exact path="/reward-store-acamica-matias-godoy/user/history" component={History} />
