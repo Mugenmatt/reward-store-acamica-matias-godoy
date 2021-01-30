@@ -4,7 +4,7 @@ import whiteBag from '../assets/icons/buy-blue.svg';
 import blueBag from '../assets/icons/buy-white.svg';
 import coinImg from '../assets/icons/coin.svg';
 import Lottie from 'react-lottie';
-import errorAnimation from '../assets/animations/14651-error-animation.json';
+// import errorAnimation from '../assets/animations/14651-error-animation.json';
 import successAnimation from '../assets/animations/37265-success-animation.json';
 
 const ProductCardBox = styled.div`
