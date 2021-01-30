@@ -27,6 +27,8 @@ body {
 }
 `;
 
+const Main = styled.div``;
+
 const CenterApp = styled.div`
   width: 86.4em;
   margin: 2% auto 5% auto;
@@ -76,14 +78,14 @@ const App = () => {
           <CenterApp>
             <Header updateUser={updateUser} onRedeemUpdateUser={onRedeemUpdateUser} />
             <CenterPages>
-              <main>
+              <Main>
                 <Switch>
                   <Route exact path="/reward-store-acamica-matias-godoy">
                     <Products onRedeemUpdateUser={onRedeemUpdateUser} userPoints={userPoints} />
                   </Route>
                   <Route exact path="/reward-store-acamica-matias-godoy/user/history" component={History} />
                   </Switch>
-              </main>
+              </Main>
             </CenterPages>
           </CenterApp>
         </BrowserRouter>
