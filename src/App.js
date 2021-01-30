@@ -78,10 +78,10 @@ const App = () => {
             <CenterPages>
               <main>
                 <Switch>
-                  <Route exact path="/">
+                  <Route exact path="/reward-store-acamica-matias-godoy/">
                     <Products onRedeemUpdateUser={onRedeemUpdateUser} userPoints={userPoints} />
                   </Route>
-                  <Route exact path="/user/history" component={History} />
+                  <Route exact path="/reward-store-acamica-matias-godoy/user/history" component={History} />
                   </Switch>
               </main>
             </CenterPages>
