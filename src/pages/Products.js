@@ -134,7 +134,7 @@ const Products = (props) => {
 
   return (
     <>
-      <NavLink to={"/user/history"} style={{textDecoration:'none'}}>
+      <NavLink to={"/reward-store-acamica-matias-godoy/user/history"} style={{textDecoration:'none'}}>
         <HistoryBtn>My History</HistoryBtn>
       </NavLink>
       <FilterContainer>
