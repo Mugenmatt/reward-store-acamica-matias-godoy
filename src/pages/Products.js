@@ -48,12 +48,10 @@ const HistoryBtn = styled.p`
     width: 30%;
   }
   @media (max-width:700px) {
-    width: 60%;
+    width: 25%;
     margin: 5% auto;
   }
 `;
-
-
 
 const Products = (props) => {
   const [productList, setProductList] = useState([]);
@@ -118,7 +116,6 @@ const Products = (props) => {
   };
 
 
-
   const handleRedeemProducts = (id) => {
     fetch('https://coding-challenge-api.aerolab.co/redeem', {
       method: 'POST',
@@ -163,8 +160,6 @@ const Products = (props) => {
               handleRedeemProducts = {handleRedeemProducts}
               onRedeemUpdateUser = {onRedeemUpdateUser}
               userPoints={userPoints}
-              // setModalState={setModalState}
-              // modalState={modalState}
             />
           ))
           .slice(0, 16)}
@@ -180,8 +175,6 @@ const Products = (props) => {
               handleRedeemProducts = {handleRedeemProducts}
               onRedeemUpdateUser = {onRedeemUpdateUser}
               userPoints={userPoints}
-              // setModalState={setModalState}
-              // modalState={modalState}
             />
           ))
           .slice(16, 32)}

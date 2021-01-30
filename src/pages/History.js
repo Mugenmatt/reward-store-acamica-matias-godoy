@@ -16,10 +16,10 @@ const HomeBtn = styled.p`
   background-color: #0ad4fa;
   padding: 10px 5px;
   border-radius: 10px;
+  transition: 0.5s;
   :hover {
     background-color: #0ac4fa;
     color: #fff;
-    cursor: pointer;
   }
   @media (max-width:1000px) {
     width:30%;
@@ -48,7 +48,7 @@ const History = () => {
         <NavLink to={"/"} style={{textDecoration:'none'}}>
           <HomeBtn>Back</HomeBtn>
         </NavLink>
-        <hr style={{ border: '1px solid #d9d9d9' }} />
+        <hr style={{ border: '1px solid #d9d9d9', 'margin-bottom':'4%' }} />
         {history.map(product => {
           return <PurchasedProduct
             title={product.name}

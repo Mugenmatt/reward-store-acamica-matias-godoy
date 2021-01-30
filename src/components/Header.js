@@ -127,6 +127,13 @@ const CoinNumberBox = styled.div`
   justify-content: space-evenly;
   padding-left: 10px;
   align-items: center;
+  transition: 0.5s;
+  :hover {
+    background-color: #0ad4fa;
+  }
+  & :hover p {
+    color: #fff;
+  }
 `;
 
 const CoinsNumber = styled.p`
@@ -134,6 +141,7 @@ const CoinsNumber = styled.p`
   font-weight: 700;
   color: #616161;
   letter-spacing: -0.15px;
+  transition: 0.5s;
 `;
 
 const Coin = styled.img`
@@ -179,7 +187,6 @@ const Header = (props) => {
   const [username, setUsername] = useState();
   const [showBtn, setShowBtn] = useState(false);
 
-  useEffect(() => {
     fetch(`https://coding-challenge-api.aerolab.co/user/me`, {
         headers: {
           'Content-Type': 'application/json',
@@ -194,7 +201,6 @@ const Header = (props) => {
           setUser(userData.points);
         })
         .catch((error) => console.log(error));
-  }, []);
 
   useEffect(() => {
     if(updateUser) {
@@ -282,13 +288,13 @@ const Header = (props) => {
       <Menu>
         <MenuLogo src={logoImg} alt="Logo" />
         <RightBoxMenu>
-          <UserName> {username} </UserName>
           <PointsContainer>
             {showBtn && <Points onClick={handlePoints}> + 1000 </Points>}
             {showBtn && <Points onClick={handlePoints}> + 5000 </Points>}
             {showBtn && <Points onClick={handlePoints}> + 7500 </Points>}
             <AddPointsBtn onClick={handleShowBtn}> Add Points </AddPointsBtn>
           </PointsContainer>
+          <UserName> {username} </UserName>
           <CoinNumberBox>
             <CoinsNumber> {user} </CoinsNumber>
             <Coin src={coinImg} />

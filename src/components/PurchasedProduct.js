@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import ImagenDePrueba from '../assets/product-pics/LenovoYogaBook-x2.png'
+import coinImg from '../assets/icons/coin.svg';
 
 const PurchasedProductCard = styled.div`
     width: 100%;
@@ -13,7 +13,6 @@ const PurchasedProductCard = styled.div`
     box-shadow: 3px 4px 10px #0ac4fa;
     :hover {
         border: 1px solid #0ac4fa;
-        cursor: pointer;
         box-shadow: 3px 4px 10px #0ad4fa;
     }
 `;
@@ -36,8 +35,15 @@ const ProductCost = styled.p`
 
 const KeyWords = styled.p`
     font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #0ad4fa;
     font-size: 1.3em;
+`;
+
+const Coin = styled.img`
+  width: 25px;
 `;
 
 const PurchasedProduct = (props) => {
@@ -49,9 +55,9 @@ const PurchasedProduct = (props) => {
                 <ProductImage src={img} alt="Producto"></ProductImage>
             </div>
             <div>
-                <ProductTitle>Product Title: <KeyWords>${title}</KeyWords> </ProductTitle>
-                <ProductDescription>Product Description: <KeyWords>${category}</KeyWords> </ProductDescription>
-                <ProductCost> Price: <KeyWords>${price}</KeyWords></ProductCost>
+                <ProductTitle>Product Title: <KeyWords>{title}</KeyWords> </ProductTitle>
+                <ProductDescription>Product Description: <KeyWords>{category}</KeyWords> </ProductDescription>
+                <ProductCost> Price: <KeyWords><Coin src={coinImg} alt={'Coin'} />{price}</KeyWords></ProductCost>
             </div>
         </PurchasedProductCard>
         </>

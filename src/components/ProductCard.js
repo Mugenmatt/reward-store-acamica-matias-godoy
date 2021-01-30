@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import styled from 'styled-components/macro';
 import whiteBag from '../assets/icons/buy-blue.svg';
 import blueBag from '../assets/icons/buy-white.svg';
+import coinImg from '../assets/icons/coin.svg';
 import Lottie from 'react-lottie';
-// import errorAnimation from '../assets/animations/14651-error-animation.json';
+import errorAnimation from '../assets/animations/14651-error-animation.json';
 import successAnimation from '../assets/animations/37265-success-animation.json';
 
 const ProductCardBox = styled.div`
@@ -68,13 +69,24 @@ const ProductTitle = styled.p`
 `;
 
 const ProductCost = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 25px;
   margin: 0;
   margin-bottom: 0.6em;
   color: #0ad4fa;
   letter-spacing: -0.04px;
   font-weight: 700;
-  text-align: center;
+`;
+
+const Coin = styled.img`
+  width: 25px;
+`;
+
+const CoinNeeded = styled.img`
+  width: 25px;
+  margin-left: 5px;
 `;
 
 const RedeemBtn = styled.button`
@@ -95,10 +107,12 @@ const RedeemBtn = styled.button`
 `;
 
 const CantRedeem = styled.p`
-  width: 40%;
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: auto;
-  text-align: center;
-  padding: 10px;
+  padding: 5px;
   background-color: #0ad4fa;
   color: #fff;
   border: 1px solid rgba(0, 0, 0, 0);
@@ -131,13 +145,13 @@ const ProductCard = (props) => {
 
   const handleClick = () => {
     if(cost < userPoints){
-      handleRedeemProducts(id);
-      onRedeemUpdateUser(true);
       setBagColor(1);
       setModalState(1);
       setTimeout(() => {
       setModalState(0);
       setBagColor(0);
+      handleRedeemProducts(id);
+      onRedeemUpdateUser(true);
       }, 3000);
     }
   }
@@ -155,11 +169,11 @@ const ProductCard = (props) => {
         <ProductTitle> {name} </ProductTitle>
         {cost < userPoints && modalState === 0
         ? <>
-          <ProductCost> ${cost} </ProductCost>
+          <ProductCost> <Coin src={coinImg} alt={'Coin'}/> {cost} </ProductCost>
           <RedeemBtn onClick={handleClick}> Redeem </RedeemBtn></>
         : <>
-          <ProductCost> ${cost} </ProductCost>
-          {modalState === 0 ? <CantRedeem>"You need {cost - userPoints} more points!"</CantRedeem> : null} </>
+          <ProductCost> <Coin src={coinImg} alt={'Coin'}/> {cost} </ProductCost>
+          {modalState === 0 ? <CantRedeem>You need {cost - userPoints} <CoinNeeded cantRedeem src={coinImg} alt={'Coin'}/></CantRedeem> : null} </>
         }
     </ProductCardBox>
   );
